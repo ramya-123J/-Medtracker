@@ -1,0 +1,94 @@
+{% extends "patient_base.html" %}
+{% block title %}Patient Dashboard – MedTrack+{% endblock %}
+
+{% block content %}
+<header>
+  <h2 style="margin-bottom: 1rem; color: #1f2c3b;">
+    <i class="fas fa-user"></i> Welcome, {{ session.get('user_name') or session.get('user_email') }}
+  </h2>
+</header>
+
+<!-- Quick Actions -->
+<div class="card" style="display: flex; gap: 20px; flex-wrap: wrap;">
+  <a href="{{ url_for('book_appointment') }}" class="quick-link">
+    <div class="icon-circle bg-blue"><i class="fas fa-calendar-plus"></i></div>
+    <span>Book Appointment</span>
+  </a>
+  <a href="{{ url_for('prescriptions') }}" class="quick-link">
+    <div class="icon-circle bg-green"><i class="fas fa-notes-medical"></i></div>
+    <span>View Prescriptions</span>
+  </a>
+  <a href="{{ url_for('reminders') }}" class="quick-link">
+    <div class="icon-circle bg-orange"><i class="fas fa-bell"></i></div>
+    <span>Set Reminder</span>
+  </a>
+</div>
+
+<!-- Latest Prescription -->
+<div class="card">
+  <h3><i class="fas fa-pills"></i> Latest Prescription</h3>
+  {% if prescriptions %}
+    {% set latest = prescriptions[-1] %}
+    <p><strong>Doctor:</strong> {{ latest.doctor_email }}</p>
+    <p><strong>Medication:</strong> {{ latest.medication }}</p>
+    <p><strong>Dosage:</strong> {{ latest.dosage }}</p>
+    <p><strong>Time:</strong> {{ latest.time }}</p>
+    <p><strong>Instructions:</strong> {{ latest.instructions }}</p>
+    <p style="color: gray; font-size: 0.9rem;">Issued on: {{ latest.timestamp }}</p>
+  {% else %}
+    <p>No prescriptions available yet.</p>
+  {% endif %}
+</div>
+
+<!-- Upcoming Appointment -->
+<div class="card">
+  <h3><i class="fas fa-clock"></i> Appointment Status</h3>
+  {% if appointments %}
+    {% set next = appointments[-1] %}
+    <p><strong>Doctor:</strong> {{ next.doctor_email }}</p>
+    <p><strong>Date:</strong> {{ next.date }} at {{ next.time }}</p>
+    <p><strong>Status:</strong> {{ next.status }}</p>
+  {% else %}
+    <p>You have no appointments scheduled.</p>
+  {% endif %}
+</div>
+
+<style>
+  .quick-link {
+    flex: 1;
+    min-width: 160px;
+    text-align: center;
+    padding: 20px 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #1f2c3b;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: background 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .quick-link:hover {
+    background-color: #e4f2f7;
+  }
+
+  .icon-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    color: white;
+    font-size: 20px;
+  }
+
+  .bg-blue { background-color: #007B8F; }
+  .bg-green { background-color: #28a745; }
+  .bg-orange { background-color: #fd7e14; }
+</style>
+{% endblock %}

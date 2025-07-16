@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}MedTrack{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --main-color: #1f2c3b;
+      --text-light: #f0f0f0;
+      --text-mid: #cccccc;
+      --text-dark: #888;
+      --border-radius: 8px;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      background-color: #f5f7f9;
+      color: var(--main-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: var(--main-color);
+      color: white;
+      padding: 15px 0;
+      box-shadow: var(--shadow);
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .logo a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    main.container {
+      padding: 30px 0;
+    }
+
+    .btn-primary {
+      background-color: var(--main-color);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #16202a;
+    }
+
+    a {
+      color: var(--main-color);
+    }
+
+    .flash {
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .flash.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .flash.error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    footer {
+      background-color: var(--main-color);
+      color: var(--text-light);
+      padding: 40px 0 20px;
+      margin-top: 60px;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: space-between;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .footer-section h3 {
+      color: var(--text-light);
+      margin-bottom: 10px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-section ul li a {
+      color: var(--text-mid);
+      text-decoration: none;
+    }
+
+    .footer-section ul li a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid #444;
+      padding-top: 15px;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      margin-top: 30px;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .footer-content {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="logo">
+          <a href="{{ url_for('home') }}">MedTrack</a>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            {% if session.get('user_email') %}
+              {% if session.get('user_type') == 'patient' %}
+                <li><a href="{{ url_for('patient_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('book_appointment') }}">Book Appointment</a></li>
+              {% elif session.get('user_type') == 'doctor' %}
+                <li><a href="{{ url_for('doctor_dashboard') }}">Dashboard</a></li>
+              {% endif %}
+              <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+              <li><a href="{{ url_for('login') }}">Patient Login</a></li>
+              <li><a href="{{ url_for('doctor_login') }}">Doctor Login</a></li>
+              <li><a href="{{ url_for('register') }}">Register</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About MedTrack</h3>
+          <p>A secure, cloud-based application that helps patients track medication schedules and manage prescriptions.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('login') }}">Patient Login</a></li>
+            <li><a href="{{ url_for('doctor_login') }}">Doctor Login</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact</h3>
+          <p><i class="fas fa-envelope"></i> support@medtrack.com</p>
+          <p><i class="fas fa-phone"></i> +1 (123) 456-7890</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 MedTrack. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,103 @@
+{% extends 'doctor_base.html' %}
+{% block title %}Add Prescription – MedTrack+{% endblock %}
+
+{% block content %}
+  <h2 style="margin-bottom: 1rem; color: #1f2c3b;">
+    <i class="fas fa-file-medical"></i> Add Prescription for {{ patient_email }}
+  </h2>
+
+  <div class="card">
+    <form method="POST">
+      <label for="medication">Medication Name</label>
+      <input type="text" name="medication" id="medication" required placeholder="e.g., Paracetamol" />
+
+      <label for="dosage">Dosage</label>
+      <input type="text" name="dosage" id="dosage" required placeholder="e.g., 500mg" />
+
+      <label for="frequency">Frequency</label>
+      <input type="text" name="frequency" id="frequency" required placeholder="e.g., Twice a day" />
+
+      <label for="instructions">Instructions</label>
+      <textarea name="instructions" id="instructions" rows="4" required placeholder="Take after meals..."></textarea>
+
+      <label for="time">Time</label>
+      <div class="time-group">
+        <select name="hour" required>
+          {% for h in range(1,13) %}
+            <option value="{{ '%02d' % h }}">{{ '%02d' % h }}</option>
+          {% endfor %}
+        </select>
+        <span>:</span>
+        <select name="minute" required>
+          {% for m in ['00','15','30','45'] %}
+            <option value="{{ m }}">{{ m }}</option>
+          {% endfor %}
+        </select>
+        <select name="ampm" required>
+          <option value="AM">AM</option>
+          <option value="PM">PM</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn-primary">
+        <i class="fas fa-plus"></i> Add Prescription
+      </button>
+    </form>
+  </div>
+
+  <style>
+    .card {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      max-width: 650px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border-left: 6px solid #1f2c3b;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+      color: #333;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .time-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .time-group select {
+      flex: 1;
+    }
+
+    .btn-primary {
+      background-color: #1f2c3b;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #162430;
+    }
+  </style>
+{% endblock %}

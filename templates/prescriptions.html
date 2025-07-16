@@ -1,0 +1,29 @@
+{% extends "patient_base.html" %}
+
+{% block content %}
+  <h2 style="color: #007B8F; margin-bottom: 20px;">
+    <i class="fas fa-notes-medical"></i> Prescriptions
+  </h2>
+
+  {% if prescriptions %}
+    {% for pres in prescriptions %}
+      <div style="
+        background: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-left: 5px solid #007B8F;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        border-radius: 6px;
+      ">
+        <p><strong>👨‍⚕️ Doctor:</strong> {{ pres.doctor_email }}</p>
+        <p><strong>💊 Medication:</strong> {{ pres.medication }}</p>
+        <p><strong>📏 Dosage:</strong> {{ pres.dosage }}</p>
+        <p><strong>⏰ Frequency:</strong> {{ pres.frequency }}</p>
+        <p><strong>📝 Instructions:</strong> {{ pres.instructions }}</p>
+        <p><strong>📅 Issued:</strong> {{ pres.timestamp }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p style="font-size: 1rem; color: #555;">No prescriptions found.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}Patient Panel – MedTrack+{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --sidebar-bg: #1f2c3b;
+      --text-light: #f0f0f0;
+      --main-bg: #f5f7f9;
+      --card-bg: #fff;
+      --card-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      --btn-bg: #1f2c3b;
+      --btn-hover: #162430;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .wrapper {
+      display: flex;
+      height: 100%;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: var(--sidebar-bg);
+      color: var(--text-light);
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #00bcd4;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin: 0.5rem 0;
+    }
+
+    .sidebar a {
+      color: var(--text-light);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: #007B8F;
+      border-radius: 4px;
+    }
+
+    .main-area {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      background: var(--main-bg);
+    }
+
+    footer {
+      background-color: var(--sidebar-bg);
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .flash-messages {
+      margin-bottom: 20px;
+    }
+
+    .flash {
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      position: relative;
+      font-size: 0.95rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .flash.success {
+      background-color: #d4edda;
+      color: #155724;
+      border-left: 5px solid #28a745;
+    }
+
+    .flash.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border-left: 5px solid #dc3545;
+    }
+
+    .flash.info {
+      background-color: #d1ecf1;
+      color: #0c5460;
+      border-left: 5px solid #17a2b8;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <nav class="sidebar">
+      <h2>MedTrack+</h2>
+      <ul>
+        <li><a href="{{ url_for('patient_dashboard') }}"><i class="fas fa-home"></i>&nbsp;Dashboard</a></li>
+        <li><a href="{{ url_for('book_appointment') }}"><i class="fas fa-calendar-plus"></i>&nbsp;Book Appointment</a></li>
+        <li><a href="{{ url_for('prescriptions') }}"><i class="fas fa-notes-medical"></i>&nbsp;Prescriptions</a></li>
+        <li><a href="{{ url_for('reminders') }}"><i class="fas fa-bell"></i>&nbsp;Reminders</a></li>
+        <li><a href="{{ url_for('patient_profile') }}"><i class="fas fa-user"></i>&nbsp;Profile</a></li>
+        <li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a></li>
+      </ul>
+    </nav>
+
+    <div class="main-area">
+      <div class="main-content">
+        <header>Welcome, {{ session.get('user_email') }}</header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for category, message in messages %}
+                <div class="flash {{ category }}">
+                  {{ message }}
+                  <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+      </div>
+
+      <footer>&copy; 2025 MedTrack+. All rights reserved.</footer>
+    </div>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      document.querySelectorAll('.flash').forEach(el => el.style.display = 'none');
+    }, 3000);
+  </script>
+</body>
+</html>

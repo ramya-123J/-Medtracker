@@ -1,0 +1,108 @@
+{% extends "patient_base.html" %}
+{% block title %}Book Appointment – MedTrack+{% endblock %}
+
+{% block content %}
+  <header style="color: #1f2c3b; font-size: 1.4rem; margin-bottom: 1rem;">
+    <i class="fas fa-calendar-plus"></i> Book Appointment
+  </header>
+
+  <div class="card">
+    <div class="form-title">Fill appointment details below:</div>
+    <form method="POST" action="{{ url_for('book_appointment') }}">
+      <label for="doctor_email">Select Doctor</label>
+      <select name="doctor_email" id="doctor_email" required>
+        {% for doctor in doctors %}
+          <option value="{{ doctor.email }}">{{ doctor.name }} ({{ doctor.specialty }})</option>
+        {% endfor %}
+      </select>
+
+      <label for="date">Appointment Date</label>
+      <input type="date" name="date" id="date" required min="{{ date|default('', true) }}" />
+
+      <label for="time">Appointment Time</label>
+      <div class="time-group">
+        <select name="hour" required>
+          {% for h in range(1,13) %}
+            <option value="{{ '%02d' % h }}">{{ '%02d' % h }}</option>
+          {% endfor %}
+        </select>
+        <span>:</span>
+        <select name="minute" required>
+          {% for m in ['00','15','30','45'] %}
+            <option value="{{ m }}">{{ m }}</option>
+          {% endfor %}
+        </select>
+        <select name="ampm" required>
+          <option value="AM">AM</option>
+          <option value="PM">PM</option>
+        </select>
+      </div>
+
+      <label for="reason">Reason for Appointment</label>
+      <textarea name="reason" id="reason" rows="3" required></textarea>
+
+      <button type="submit" class="btn-primary">Book Appointment</button>
+    </form>
+  </div>
+
+  <style>
+    .card {
+      background: #ffffff;
+      padding: 1.8rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      max-width: 650px;
+    }
+
+    .form-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      color: #1f2c3b;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 1.2rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .time-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .time-group select {
+      flex: 1;
+    }
+
+    .btn-primary {
+      background-color: #1f2c3b;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #162430;
+    }
+  </style>
+{% endblock %}

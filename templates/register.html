@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register | MedTrack+</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #1f2c3b;
+      --light-color: #f9fcfd;
+      --input-bg: #fff;
+      --text-color: #333;
+      --border-radius: 8px;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--light-color);
+      color: var(--text-color);
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 15px 0;
+      box-shadow: var(--shadow);
+    }
+
+    .container {
+      width: 90%;
+      margin: auto;
+      max-width: 1000px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .form-section {
+      background: white;
+      padding: 40px;
+      margin: 40px auto;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      max-width: 500px;
+    }
+
+    .form-section h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--primary-color);
+    }
+
+    .flashes {
+      list-style: none;
+      margin: 15px 0;
+      padding: 0;
+    }
+
+    .flashes li {
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: var(--border-radius);
+      font-weight: 500;
+    }
+
+    .flashes li.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .flashes li.warning {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .flashes li.danger {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .user-type-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .user-type {
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .user-type input {
+      display: none;
+    }
+
+    .user-type-label {
+      display: block;
+      border: 2px solid var(--primary-color);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      width: 100px;
+      color: var(--primary-color);
+      transition: all 0.3s ease;
+    }
+
+    .user-type-label i {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .user-type input:checked + .user-type-label {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--primary-color);
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border-radius: var(--border-radius);
+      border: 1px solid #ccc;
+      background-color: var(--input-bg);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #16212c;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 0.95rem;
+    }
+
+    .login-link a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 40px 0 20px;
+      margin-top: auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+
+    .footer-grid h3 {
+      margin-bottom: 15px;
+      color: white;
+    }
+
+    .footer-grid ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-grid ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-grid ul li a {
+      color: #ccc;
+      text-decoration: none;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      border-top: 1px solid #444;
+      padding-top: 15px;
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">MedTrack+</div>
+        <ul>
+          <li><a href="{{ url_for('home') }}">Home</a></li>
+          <li><a href="{{ url_for('login') }}">Patient Login</a></li>
+          <li><a href="{{ url_for('doctor_login') }}">Doctor Login</a></li>
+          <li><a href="{{ url_for('register') }}">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="form-section">
+      <h2>Create an Account</h2>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <ul class="flashes">
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
+      <form method="POST" action="{{ url_for('register') }}">
+        <div class="user-type-boxes">
+          <label class="user-type">
+            <input type="radio" name="user_type" value="doctor" required>
+            <span class="user-type-label">
+              <i class="fas fa-user-md"></i><br>
+              Doctor
+            </span>
+          </label>
+          <label class="user-type">
+            <input type="radio" name="user_type" value="patient" required>
+            <span class="user-type-label">
+              <i class="fas fa-user"></i><br>
+              Patient
+            </span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="text" id="phone" name="phone" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Create Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <button type="submit" class="btn">Register</button>
+      </form>
+
+      <div class="login-link">
+        Already have an account? <a href="{{ url_for('login') }}">Login here</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>About MedTrack+</h3>
+          <p>Cloud-based platform for patients and doctors to manage appointments and prescriptions with ease.</p>
+        </div>
+        <div>
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('login') }}">Patient Login</a></li>
+            <li><a href="{{ url_for('doctor_login') }}">Doctor Login</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <p><i class="fas fa-envelope"></i> support@medtrack.com</p>
+          <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2025 MedTrack+. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

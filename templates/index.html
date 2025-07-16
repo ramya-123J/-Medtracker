@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MedTrack+ - Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #1f2c3b;
+      --light-color: #f0f6f7;
+      --text-color: #333;
+      --border-radius: 8px;
+      --shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--light-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow);
+    }
+
+    .container {
+      width: 90%;
+      margin: auto;
+      max-width: 1200px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 60px 0;
+    }
+
+    .hero-text {
+      flex: 1;
+      padding-right: 40px;
+    }
+
+    .hero-text h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: #15202b;
+    }
+
+    .hero-img {
+      flex: 1;
+      text-align: center;
+    }
+
+    .hero-img img {
+      width: 100%;
+      max-width: 450px;
+    }
+
+    section {
+      padding: 60px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--primary-color);
+    }
+
+    .about-carousel-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      margin: 30px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-container {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .about-carousel {
+      display: flex;
+      transition: transform 0.6s ease;
+    }
+
+    .about-slide {
+      min-width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+      padding: 30px;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+
+    .about-slide i {
+      color: var(--primary-color);
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .arrow {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 10px;
+      transition: background 0.3s ease;
+    }
+
+    .arrow:hover {
+      background-color: #15202b;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+    }
+
+    .feature-card {
+      background-color: white;
+      padding: 25px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .feature-card i {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+    }
+
+    .testimonial-wrapper {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .testimonial-track {
+      display: flex;
+      gap: 20px;
+      animation: slideTrain 20s linear infinite;
+    }
+
+    .testimonial-card {
+      background-color: white;
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      min-width: 300px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .testimonial-card p {
+      font-style: italic;
+      font-size: 1.1rem;
+    }
+
+    .testimonial-card h4 {
+      margin-top: 15px;
+      color: var(--primary-color);
+    }
+
+    @keyframes slideTrain {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 40px 0 20px;
+      margin-top: 60px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      border-top: 1px solid #444;
+      padding-top: 15px;
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero-text {
+        padding-right: 0;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-end;
+      }
+
+      .testimonial-track {
+        animation-duration: 40s;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <div class="logo">MedTrack+</div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="{{ url_for('login') }}">Patient Login</a></li>
+        <li><a href="{{ url_for('doctor_login') }}">Doctor Login</a></li>
+        <li><a href="{{ url_for('register') }}">Register</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero container">
+  <div class="hero-text">
+    <h1>Track Your Health with MedTrack+</h1>
+    <p>A secure platform to manage appointments, prescriptions, and your complete health journey.</p>
+    <div class="hero-buttons">
+      <a href="{{ url_for('login') }}" class="btn">Get Started</a>
+      <a href="{{ url_for('register') }}" class="btn">Register</a>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="https://cdn-icons-png.flaticon.com/512/3209/3209783.png" alt="Healthcare Illustration">
+  </div>
+</section>
+
+<!-- ✅ About Us Carousel -->
+<section class="container" id="about">
+  <h2 class="section-title">About Us</h2>
+  <div class="about-carousel-wrapper">
+    <button class="arrow left" onclick="moveSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+    <div class="carousel-container">
+      <div class="about-carousel" id="aboutCarousel">
+        <div class="about-slide"><i class="fas fa-stethoscope"></i><h3>For Patients</h3><p>Book appointments, view prescriptions, and manage your health in one place.</p></div>
+        <div class="about-slide"><i class="fas fa-user-md"></i><h3>Doctor Dashboard</h3><p>Doctors can manage schedules, issue prescriptions, and track patient progress.</p></div>
+        <div class="about-slide"><i class="fas fa-cloud"></i><h3>Cloud Access</h3><p>Access your medical data from anywhere, securely stored on AWS cloud.</p></div>
+        <div class="about-slide"><i class="fas fa-lock"></i><h3>Security</h3><p>All data is encrypted and protected — your health privacy is our priority.</p></div>
+        <div class="about-slide"><i class="fas fa-bell"></i><h3>Smart Reminders</h3><p>Get alerts for appointments, medications, and health checkups.</p></div>
+        <div class="about-slide"><i class="fas fa-heartbeat"></i><h3>Health Insights</h3><p>Track your medical trends and gain insights into your health progress.</p></div>
+      </div>
+    </div>
+    <button class="arrow right" onclick="moveSlide(1)"><i class="fas fa-chevron-right"></i></button>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="container" id="features">
+  <h2 class="section-title">Key Features</h2>
+  <div class="feature-grid">
+    <div class="feature-card"><i class="fas fa-calendar-check"></i><h3>Book Appointments</h3><p>Schedule doctor visits easily and receive instant confirmation.</p></div>
+    <div class="feature-card"><i class="fas fa-prescription-bottle-alt"></i><h3>Digital Prescriptions</h3><p>Access your prescription history and medication details anytime.</p></div>
+    <div class="feature-card"><i class="fas fa-user-md"></i><h3>Doctor Panel</h3><p>Doctors manage appointments and provide prescriptions digitally.</p></div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="container" id="testimonials">
+  <h2 class="section-title">What Our Users Say</h2>
+  <div class="testimonial-wrapper">
+    <div class="testimonial-track">
+      <div class="testimonial-card"><p>"MedTrack+ helped me stay on top of my medication. It's super easy to use!"</p><h4>– Ravi, Patient</h4></div>
+      <div class="testimonial-card"><p>"As a doctor, this platform saves me so much time. I love the simplicity!"</p><h4>– Dr. Meena</h4></div>
+      <div class="testimonial-card"><p>"Great UI, fast performance, and easy to book appointments anytime."</p><h4>– Anjali, Patient</h4></div>
+      <div class="testimonial-card"><p>"Finally, a health tracker that's reliable and easy to use."</p><h4>– Suresh, Patient</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-grid" id="contact">
+      <div>
+        <h3>About MedTrack+</h3>
+        <p>Cloud-based system for patients and doctors to communicate and manage health efficiently.</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="{{ url_for('login') }}">Patient Login</a></li>
+          <li><a href="{{ url_for('doctor_login') }}">Doctor Login</a></li>
+          <li><a href="{{ url_for('register') }}">Register</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Contact Us</h3>
+        <p><i class="fas fa-envelope"></i> support@medtrack.com</p>
+        <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 MedTrack+. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<!-- JavaScript for Carousel -->
+<script>
+  let currentIndex = 0;
+  const carousel = document.getElementById('aboutCarousel');
+  const slides = document.querySelectorAll('.about-slide');
+  const totalSlides = slides.length;
+
+  function moveSlide(direction) {
+    currentIndex += direction;
+    if (currentIndex < 0) currentIndex = totalSlides - 1;
+    if (currentIndex >= totalSlides) currentIndex = 0;
+    carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+</script>
+
+</body>
+</html>

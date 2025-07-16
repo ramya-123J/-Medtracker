@@ -1,0 +1,54 @@
+{% extends "patient_base.html" %}
+{% block title %}Reminders – MedTrack+{% endblock %}
+
+{% block content %}
+  <h2 style="color: #007B8F; margin-bottom: 20px;">
+    <i class="fas fa-bell"></i> Set Reminder
+  </h2>
+
+  <form method="POST" action="{{ url_for('reminders') }}"
+        style="background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); max-width: 600px; margin-bottom: 30px;">
+    
+    <label for="message"><strong>Reminder Message</strong></label>
+    <input type="text" name="message" id="message" required
+           style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">
+
+    <label><strong>Reminder Time</strong></label>
+    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+      <select name="hour" required style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        {% for h in range(1, 13) %}
+          <option value="{{ '%02d' % h }}">{{ '%02d' % h }}</option>
+        {% endfor %}
+      </select>
+
+      <span>:</span>
+
+      <select name="minute" required style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        {% for m in ['00', '15', '30', '45'] %}
+          <option value="{{ m }}">{{ m }}</option>
+        {% endfor %}
+      </select>
+
+      <select name="ampm" required style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <option value="AM">AM</option>
+        <option value="PM">PM</option>
+      </select>
+    </div>
+
+    <button type="submit" style="background: #1f2c3b; color: white; padding: 10px 20px; border: none; border-radius: 4px;">
+      <i class="fas fa-plus"></i> Add Reminder
+    </button>
+  </form>
+
+  {% if reminders %}
+    <h3 style="color: #007B8F; margin-bottom: 10px;"><i class="fas fa-list"></i> Your Reminders</h3>
+    {% for reminder in reminders %}
+      <div style="background: #fff; padding: 15px; border-left: 5px solid #007B8F; border-radius: 6px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);">
+        <p><strong>⏰ Time:</strong> {{ reminder.time }}</p>
+        <p><strong>📝 Message:</strong> {{ reminder.message }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p style="color: #555;">No reminders set yet.</p>
+  {% endif %}
+{% endblock %}
